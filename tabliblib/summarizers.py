@@ -286,12 +286,13 @@ class MultiColumnSummarizer:
 
 @dataclass
 class TableSummarizer:
-    numeric_summarizer: NumericColumnSummarizer = NumericColumnSummarizer()
-    bool_summarizer: BoolColumnSummarizer = BoolColumnSummarizer()
-    obj_summarizer: ObjectColumnSummarizer = ObjectColumnSummarizer()
-    datetime_summarizer: DateTimeColumnSummarizer = DateTimeColumnSummarizer()
-    # multicolumn_summarizer: MultiColumnSummarizer = MultiColumnSummarizer()
-    header_summarizer: HeaderSummarizer = HeaderSummarizer()
+
+    numeric_summarizer: NumericColumnSummarizer = field(default_factory=NumericColumnSummarizer)
+    bool_summarizer: BoolColumnSummarizer = field(default_factory=BoolColumnSummarizer)
+    obj_summarizer: ObjectColumnSummarizer = field(default_factory=ObjectColumnSummarizer)
+    datetime_summarizer: DateTimeColumnSummarizer = field(default_factory=DateTimeColumnSummarizer)
+    header_summarizer: HeaderSummarizer = field(default_factory=HeaderSummarizer)
+
     agg_quantiles:Optional[Sequence[float]] = (0.1, 0.25, 0.75, 0.9)
     agg_fns: Dict[str, Callable[[Sequence[Any]], float]] = field(default_factory=lambda: {
         "min": np.nanmin,
